@@ -9,6 +9,7 @@
     "@babel/plugin-transform-runtime": "7.19.1",
     "@babel/preset-env": "7.17.10",
     "@babel/preset-react": "^7.16.7",
+    "@clerk/clerk-react": "^5.57.0",
     "@rollup/pluginutils": "^5.1.4",
     "@svgr/plugin-svgo": "^8.1.0",
     "@tanstack/react-query": "^5.90.11",

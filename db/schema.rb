@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_02_081632) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_03_025522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -18,6 +18,48 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_02_081632) do
   create_table "categorisations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_store_events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "data", null: false
+    t.uuid "event_id", null: false
+    t.string "event_type", null: false
+    t.jsonb "metadata"
+    t.datetime "valid_at"
+    t.index ["created_at"], name: "index_event_store_events_on_created_at"
+    t.index ["event_id"], name: "index_event_store_events_on_event_id", unique: true
+    t.index ["event_type"], name: "index_event_store_events_on_event_type"
+    t.index ["valid_at"], name: "index_event_store_events_on_valid_at"
+  end
+
+  create_table "event_store_events_in_streams", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.uuid "event_id", null: false
+    t.integer "position"
+    t.string "stream", null: false
+    t.index ["created_at"], name: "index_event_store_events_in_streams_on_created_at"
+    t.index ["event_id"], name: "index_event_store_events_in_streams_on_event_id"
+    t.index ["stream", "event_id"], name: "index_event_store_events_in_streams_on_stream_and_event_id", unique: true
+    t.index ["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true
+  end
+
+  create_table "event_vote_counts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "dislikes", default: 0, null: false
+    t.uuid "event_id", null: false
+    t.integer "likes", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_vote_counts_on_event_id"
+  end
+
+  create_table "event_votes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.uuid "event_id", null: false
+    t.string "kind", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_id", null: false
+    t.index ["event_id"], name: "index_event_votes_on_event_id"
   end
 
   create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -72,6 +114,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_02_081632) do
     t.index ["identifier"], name: "index_webhook_events_on_identifier", unique: true
   end
 
+  add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
+  add_foreign_key "event_vote_counts", "events"
+  add_foreign_key "event_votes", "events"
   add_foreign_key "events", "organisers"
   add_foreign_key "events", "organizations"
 end
