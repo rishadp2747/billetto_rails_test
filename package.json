@@ -11,6 +11,8 @@
     "@babel/preset-react": "^7.16.7",
     "@rollup/pluginutils": "^5.1.4",
     "@svgr/plugin-svgo": "^8.1.0",
+    "@tanstack/react-query": "^5.90.11",
+    "antd": "^6.0.0",
     "axios": "1.7.7",
     "babel-plugin-js-logger": "^1.0.17",
     "babel-plugin-macros": "^3.1.0",
