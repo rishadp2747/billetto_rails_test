@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_01_142333) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_02_081632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -60,6 +60,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_142333) do
     t.string "identifier", null: false
     t.datetime "updated_at", null: false
     t.index ["identifier"], name: "index_organizations_on_identifier", unique: true
+  end
+
+  create_table "webhook_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.jsonb "data"
+    t.string "identifier", null: false
+    t.string "processing_errors"
+    t.string "status", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identifier"], name: "index_webhook_events_on_identifier", unique: true
   end
 
   add_foreign_key "events", "organisers"
