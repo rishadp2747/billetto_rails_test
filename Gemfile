@@ -17,7 +17,7 @@ gem "react-rails"
 
 gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
-gem "redis", "5.0.8"
+gem "redis", "5.4.1"
 
 # Background jobs
 gem "sidekiq", "7.1.6"

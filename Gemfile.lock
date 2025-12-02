@@ -241,8 +241,8 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    redis (5.0.8)
-      redis-client (>= 0.17.0)
+    redis (5.4.1)
+      redis-client (>= 0.22.0)
     redis-client (0.26.1)
       connection_pool
     regexp_parser (2.11.3)
@@ -339,7 +339,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.1.1)
   react-rails
-  redis (= 5.0.8)
+  redis (= 5.4.1)
   rubocop-rails-omakase
   sidekiq (= 7.1.6)
   sprockets-rails
