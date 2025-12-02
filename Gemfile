@@ -20,7 +20,7 @@ gem "jbuilder"
 gem "redis", "5.0.8"
 
 # Background jobs
-gem "sidekiq", "7.1.6"
+gem "sidekiq", "8.0.10"
 
 gem "faraday"
 
