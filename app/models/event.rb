@@ -13,9 +13,11 @@ class Event < ApplicationRecord
   belongs_to :organization
   belongs_to :organiser
 
-  validates :title, presence: true
-  validates :availability, inclusion: { in: [ true, false ] }
+  has_one :event_vote_count
+  has_many :event_votes, dependent: :destroy_async
 
+  validates :title, presence: true
   validates :url, presence: true
   validates :image_link, presence: true
+  validates :availability, inclusion: { in: [ true, false ] }
 end
