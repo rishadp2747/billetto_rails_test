@@ -1,14 +1,14 @@
 import React from "react";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Events from "./Events";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" render={() => <div>Home</div>} />
-        <Route exact path="/about" render={() => <div>About</div>} />
-      </Switch>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Events />
+    </QueryClientProvider>
   );
 };
 

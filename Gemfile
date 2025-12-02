@@ -24,6 +24,8 @@ gem "sidekiq", "7.1.6"
 
 gem "faraday"
 
+gem "pagy", "~> 9.0"
+
 gem "byebug"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
