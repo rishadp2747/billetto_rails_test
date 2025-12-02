@@ -116,3 +116,10 @@ dist/
 # Ignore all build files
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Vite cache
+.vite
+
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
+
