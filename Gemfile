@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -20,7 +22,9 @@ gem "redis", "5.0.8"
 # Background jobs
 gem "sidekiq", "7.1.6"
 
+gem "faraday"
 
+gem "byebug"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
@@ -36,6 +40,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
 end
 
 group :development do
@@ -44,7 +49,8 @@ group :development do
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem "factory_bot_rails"
+
+  # For auto-generating demo data
+  gem "faker"
 end
