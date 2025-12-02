@@ -7,6 +7,7 @@ module Billetto
     class SSLError < StandardError; end
     class ParsingError < StandardError; end
     class ConnectionFailed < StandardError; end
+    class ClientError < StandardError; end
     class Error < StandardError; end
   end
 end
