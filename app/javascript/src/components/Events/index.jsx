@@ -1,33 +1,30 @@
 import { getColumns } from "./columns";
-import { useQuery } from "@tanstack/react-query";
 import { Table } from "antd";
 import React, { useState } from "react";
-import { fetchEvents } from "./utils";
+import { useEventsApi ,useEventsVoteApi} from "../../hooks/useEventsApi";
 
 const Events = () => {
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["events", page],
-    queryFn: () => fetchEvents(page),
-    keepPreviousData: true,
-  });
+  const { data = {}, isLoading, isError, error } = useEventsApi(page);
+  const {mutate: createEventVote}= useEventsVoteApi()
 
-  if (isError) {
-    return <div>Error loading events: {error.message}</div>;
+  const onLike = (record) =>{
+    createEventVote({event_vote: {event_id: record.id, vote_kind: "like" }})
   }
 
-  const events =
-    data?.events?.map((event) => ({
-      ...event,
-      date: event.startdate,
-      image: event.image_link,
-    })) || [];
+  const onDislike = (record)=>{
+    createEventVote({event_vote:{event_id: record.id, vote_kind: "dislike" }})
+  }
+
+  if (isError) {
+    return <div>Error loading events: {error?.message}</div>;
+  }
 
   return (
     <Table
-      columns={getColumns()}
-      dataSource={events}
+      columns={getColumns(onLike,onDislike)}
+      dataSource={data?.events}
       rowKey="id"
       loading={isLoading}
       pagination={{
