@@ -4,6 +4,8 @@ require "uri"
 require "cgi"
 
 class Billetto::EventsSeederService
+  CHECKPOINT_URL = "https://checkpoint.example.com/api"
+
   def initialize(next_url = nil)
     @next_url = next_url
   end
@@ -51,8 +53,20 @@ class Billetto::EventsSeederService
         next
       end
 
+      unless has_more
+        save_the_next_url_in_redis!(billetto_events_data.last.dig("id"))
+      end
+
       return if error_ids.blank?
 
       Rails.logger.error("Failed to create the following events: #{error_ids.join(",")}")
+    end
+
+    def save_the_next_url_in_redis!(last_event_id)
+      uri = URI(CHECKPOINT_URL)
+      params = URI.decode_www_form(uri.query || "").to_h
+      params["after"] = last_event_id.to_s
+      uri.query = URI.encode_www_form(params)
+      Rails.cache.write("billetto_next_url", uri.to_s)
     end
 end
