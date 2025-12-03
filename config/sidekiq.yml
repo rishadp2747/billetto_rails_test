@@ -3,5 +3,4 @@ development:
 production:
   :concurrency: 1
 :queues:
-  - urgent
   - default

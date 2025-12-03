@@ -1,0 +1,10 @@
+default: &default
+  events_seeder:
+    cron: "every 2 hour"
+    class: "EventsSeederJob"
+
+development:
+  <<: *default
+
+production:
+  <<: *default

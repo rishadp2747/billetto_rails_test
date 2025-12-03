@@ -1,0 +1,21 @@
+<% repository_name = `git rev-parse --show-toplevel`.split('/').last.strip %>
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: 5
+  password:
+
+development:
+  <<: *default
+  database: <%= "#{repository_name}_development" %>
+
+test:
+  <<: *default
+  database: <%= "#{repository_name}_test" %>
+
+production:
+  <<: *default
+  database: <%= "#{repository_name}_production" %>
+

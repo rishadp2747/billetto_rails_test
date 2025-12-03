@@ -1,0 +1,4 @@
+web: bundle exec puma -p 3000 -C config/puma.rb
+vite: yarn dev
+worker: bundle exec sidekiq -C config/sidekiq.yml
+
