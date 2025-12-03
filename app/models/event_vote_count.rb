@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class EventVoteCount < ApplicationRecord
-  validates :event_id, presence: true, uniqueness: true
+  belongs_to :event
+
   validates :likes, numericality: { greater_than_or_equal_to: 0 }
   validates :dislikes, numericality: { greater_than_or_equal_to: 0 }
 
