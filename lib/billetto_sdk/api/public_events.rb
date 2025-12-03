@@ -3,7 +3,7 @@
 require "uri"
 
 module BillettoSdk
-  module Api
+  class Api
     module PublicEvents
       mattr_accessor :request
 

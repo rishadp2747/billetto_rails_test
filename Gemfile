@@ -22,6 +22,8 @@ gem "redis", "5.0.8"
 # Background jobs
 gem "sidekiq", "7.1.6"
 
+gem "sidekiq-cron", "1.10.1"
+
 gem "faraday"
 
 gem "pagy", "~> 9.0"
@@ -33,7 +35,6 @@ gem "bootsnap", require: false
 gem "clerk-sdk-ruby", require: "clerk"
 
 gem "rails_event_store"
-
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -53,6 +54,9 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Process manager for Procfile-based applications
+  gem "foreman"
 end
 
 group :test do

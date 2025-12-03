@@ -2,6 +2,7 @@
 
 require_relative "api/errors"
 require_relative "api/request"
+require_relative "api/public_events"
 
 module BillettoSdk
   class Api
