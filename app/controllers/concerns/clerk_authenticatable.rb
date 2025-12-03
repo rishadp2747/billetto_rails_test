@@ -23,9 +23,15 @@ module ClerkAuthenticatable
 
     def authenticate_user!
       token = @header.split(" ").last
-      user_id = ClerkIntegration.verify_token(token)
-      return @current_user_id = user_id if user_id.present?
+      @current_user_id = ClerkIntegration.verify_token(token)
 
-      render json: { error: "Invalid token" }, status: :unauthorized
+    rescue ClerkIntegration::TokenInvalid => e
+      render json: { error: e.message }, status: :unauthorized
+    rescue ClerkIntegration::APIUnavailable => e
+      render json: { error: e.message }, status: :service_unavailable
+    rescue ClerkIntegration::ConfigurationMissing => e
+      render json: { error: e.message }, status: :internal_server_error
+    rescue ClerkIntegration::Error => e
+      render json: { error: e.message }, status: :internal_server_error
     end
 end

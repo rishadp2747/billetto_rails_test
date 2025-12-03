@@ -22,8 +22,8 @@ export const getColumns = (onLike, onDislike) => [
   },
   {
     title: "image",
-    dataIndex: "image",
-    key: "image",
+    dataIndex: "image_link",
+    key: "image_link",
     render: (src) =>
       src ? (
         <Image

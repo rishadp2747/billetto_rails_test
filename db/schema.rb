@@ -105,6 +105,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_03_025522) do
   end
 
   create_table "webhook_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "action", null: false
     t.datetime "created_at", null: false
     t.jsonb "data"
     t.string "identifier", null: false
