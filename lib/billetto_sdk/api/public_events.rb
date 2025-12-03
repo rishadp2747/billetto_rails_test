@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-module Billetto
+require "uri"
+
+module BillettoSdk
   module Api
     module PublicEvents
+      mattr_accessor :request
+
       class << self
         ENDPOINT = "public/events"
 
@@ -11,7 +15,8 @@ module Billetto
           params[:after] = after if after.present?
           query_string = URI.encode_www_form(params)
           url = "#{ENDPOINT}?#{query_string}"
-          Request.get(url)
+
+          request.get(url)
         end
       end
     end
