@@ -5,6 +5,9 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "helper_methods"
 
+# Load test support files
+Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
+
 module ActiveSupport
   class TestCase
     include FactoryBot::Syntax::Methods
