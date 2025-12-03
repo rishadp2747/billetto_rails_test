@@ -13,7 +13,7 @@ class Event < ApplicationRecord
   belongs_to :organization
   belongs_to :organiser
 
-  has_one :event_vote_count
+  has_one :event_vote_count, dependent: :destroy
   has_many :event_votes, dependent: :destroy_async
 
   validates :title, presence: true
